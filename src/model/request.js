@@ -8,7 +8,7 @@ const validateEmail = (email) => {
       );
   };
 
-const userSchema = new mongoose.Schema({
+const requestSchema = new mongoose.Schema({
     name:{
         type:String,
         required:[true,"Name is required"]
@@ -21,28 +21,49 @@ const userSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid email!`
         }
     },
-    password:{
+    phone:{
         type:String,
-        required:[true,"Password is required"]
+        required:[true,"Phone is required"],
+        min:[10,"Enter Valid Phone Number"]
+    },
+    type:{
+        type:String,
+        required:[true,"Type is required"],
+    },
+    title:{
+        type:String,
+        required:[true,"Title is required"],
+    },
+    description:{
+        type:String,
+        required:[true,"Description is required"],
     },
     status:{
-        type:Boolean,
-        default:true
-    },
-    role:{
         type:String,
-        default:"admin"
+        default:'Open'
     },
     createdAt:{
         type:Date,
         default:Date.now()
+    },
+    assignedTo:{
+        type:String
+    },
+    assignedAt:{
+        type:Date,
+    },
+    clossedAt:{
+        type:Date,
+    },
+    resolution:{
+        type:String,
     }
 },
 {
-    collection:'user',
+    collection:'requests',
     versionKey:false
 })
 
-const UserModel = mongoose.model('user',userSchema)
+const RequestModel = mongoose.model('requests',requestSchema)
 
-export default UserModel
+export default RequestModel
